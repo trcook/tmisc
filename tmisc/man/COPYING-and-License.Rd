@@ -1,0 +1,41 @@
+\docType{package}
+\name{COPYING and License}
+\alias{COPYING and License}
+\alias{COPYING and License-package}
+\title{COPYING & Liscense}
+\description{
+License stuff
+}
+\details{
+This is just a few functions that are useful for me in
+writing my dissertation and doing daily analysis
+}
+\note{
+Name: Tmisc Package Description: A package for the R
+computer language and R statistical computing software
+Copyright (C) 2014 Thomas R. Cook
+
+This program is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public
+License as published by the Free Software Foundation,
+either version 3 of the License, or (at your option) any
+later version.
+
+This program is distributed in the hope that it will be
+useful, but WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+PURPOSE.  See the GNU General Public License for more
+details.
+
+You should have received a copy of the GNU General Public
+License along with this program.  If not, see
+<http://www.gnu.org/licenses/>.
+
+Code to find the GPL on your system is provided in the
+examples below
+}
+\examples{
+# The GPL is also be stored locally at R_home/share/licenses/GPL-3. To see where this is located on your system, run:
+paste(R.home(),"share/licenses/GPL-3",sep="/")
+}
+
