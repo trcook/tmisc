@@ -1,6 +1,5 @@
-\name{COPYING}
-\alias{COPYING}
-\title{COPYING and License}
+\name{COPYING and License}
+\alias{COPYING and License}
 \description{
 License stuff
 }

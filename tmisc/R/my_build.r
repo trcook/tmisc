@@ -1,12 +1,10 @@
 ## ---- Package Description.rd ----
 #' This is just a few functions that are useful for me in writing my dissertation and doing daily analysis
+#' @name tmisc-package
 #' @docType package
-#' @name Tmisc Package
 NULL
 
-## ---- Licensing etc ----
-#' @name COPYING
-#' @title COPYING and License
+#' @name COPYING and License
 #' @description License stuff
 #' @note
 #' Name: Tmisc Package
@@ -30,10 +28,10 @@ NULL
 #' @examples
 #' # The GPL is also be stored locally at R_home/share/licenses/GPL-3. To see where this is located on your system, run:
 #' paste(R.home(),"share/licenses/GPL-3",sep="/")
+
 NULL
 
 ## ---- my-build -----
-
 #' @title Source an Rmd file as R script
 #' @description This function takes a single Rmd, running it through knitr, it pulls a temporary R script from the chunks and sources those into console. It is useful for cases where we want to pull the R code from a knitr file into an interactive shell. It is also useful where we want to run a knitr document through an R script.
 #' @param file
