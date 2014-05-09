@@ -1,14 +1,8 @@
-\docType{package}
-\name{COPYING and License}
-\alias{COPYING and License}
-\alias{COPYING and License-package}
-\title{COPYING & Liscense}
+\name{COPYING}
+\alias{COPYING}
+\title{COPYING and License}
 \description{
 License stuff
-}
-\details{
-This is just a few functions that are useful for me in
-writing my dissertation and doing daily analysis
 }
 \note{
 Name: Tmisc Package Description: A package for the R
