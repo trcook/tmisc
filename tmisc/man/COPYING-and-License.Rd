@@ -1,9 +1,7 @@
 \name{COPYING and License}
 \alias{COPYING and License}
+\title{License stuff}
 \description{
-License stuff
-}
-\note{
 Name: Tmisc Package Description: A package for the R
 computer language and R statistical computing software
 Copyright (C) 2014 Thomas R. Cook

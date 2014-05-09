@@ -5,8 +5,8 @@
 NULL
 
 #' @name COPYING and License
-#' @description License stuff
-#' @note
+#' @title License stuff
+#' @description 
 #' Name: Tmisc Package
 #' Description: A package for the R computer language and R statistical computing software
 #' Copyright (C) 2014  Thomas R. Cook
