@@ -1,0 +1,9 @@
+Package: tmisc
+Type: Package
+Title: A collection of small functions that help with writing my dissertation
+Version: 1.0
+Date: 2014-05-08
+Author: Thomas R. Cook
+Maintainer: Thomas R. Cook <thomas.cook@colorado.edu>
+Description: Various small functions, see manual for more detailed descriptions
+License: GPL-3
