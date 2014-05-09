@@ -3,3 +3,4 @@
 .RData
 *.Rcheck/
 *.roxygen/
+*.tar.gz
