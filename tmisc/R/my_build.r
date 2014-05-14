@@ -33,6 +33,7 @@ NULL
 
 ## ---- my-build -----
 #' @title Source an Rmd file as R script
+#' 
 #' @description This function takes a single Rmd, running it through knitr, it pulls a temporary R script from the chunks and sources those into console. It is useful for cases where we want to pull the R code from a knitr file into an interactive shell. It is also useful where we want to run a knitr document through an R script.
 #' @param file
 #' A path to an `.Rmd` file to process, input as a string.
@@ -52,7 +53,7 @@ my_build<-function(file="Building.Rmd",reqs=c("knitr","rmarkdown","devtools","fo
   
   for(x in reqs){
     #: This loop checks to make sure packages in reqs are found and loaded
-    
+    # Line 56 here will throw error in package building check. Dont' worry about it. 
     if(eval(substitute(suppressWarnings(library(x, logical.return=T)), env=list(x=x)))==FALSE){
       return(warning(c("The package ",x," is missing and is needed for building")))
     }}
@@ -64,3 +65,19 @@ my_build<-function(file="Building.Rmd",reqs=c("knitr","rmarkdown","devtools","fo
   
 }
 
+
+#' @title testObject function
+#' @param object
+#' This is an object in the current environment (typically the global environment)
+#' @return boolean. True if exists, false otherwise
+#' 
+#' @usage testObject(object)
+#' 
+#' @export
+
+
+
+testObject <- function(object)
+{
+  exists(as.character(substitute(object)))
+}
