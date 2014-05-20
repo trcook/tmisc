@@ -1,0 +1,33 @@
+\name{bootstrap_warning}
+\alias{bootstrap_warning}
+\title{bootstrap_warning}
+\usage{
+bootstrap_warning(head,x)
+}
+\arguments{
+  \item{head}{A bold portion of the warning. A character
+  string.}
+
+  \item{x}{the text of the body of the warning. A character
+  string.}
+}
+\value{
+A html tag with the warning in it
+}
+\description{
+A simple knitr function that outputs a bootstrap warning
+block in html. Good for knitr-build websites.
+}
+\details{
+
+}
+\examples{
+bootstrap_warning("Warning 05-19: ","This warning is serious. seriously.")
+# returns:
+<div class="alert alert-danger alert-dismissable">
+<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
+</button>
+<strong>Warning 05-19: </strong>This warning is serious. seriously.
+</div>
+}
+
