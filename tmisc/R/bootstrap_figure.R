@@ -18,6 +18,11 @@
 #' fig_num<-counter()
 #' # run bootstrap_figure on a picture of a historgram
 #' bootstrap_figure(fig_title="title",fig_number="a",content=hist(runif(10,0,1)))
+#' # To run with ggplot, be sure to enclose the expression in a print() command:
+#' require(ggplot2)
+#' bootstrap_figure(fig_title="title",fig_number="a",content=print(qplot(rnorm(1000,0,1),binwidth=.2)))
+#' @note
+#' ggplot2 will work with this function, but your expression MUST be enclosed in a print command. See the examples.
 #' @export
 
 
@@ -27,13 +32,13 @@ cat('<div class="panel panel-default">\n<div class="panel-heading">\n<h3 class="
     cat(paste(fig_prefix," ",fig_number,": ",sep=""))
   }
   cat(fig_title)
-  cat('</h3>\n</div">\n<div class="panel-body">')
+  cat('</h3>\n</div>\n<div class="panel-body">')
 cat(
   paste('{% capture plot',fig_number,' %}\n',sep="") #liquid templating
   )
 exitfun<-function(){
   content
-  cat('\n{{ endcapture }}\n')
+  cat('\n{% endcapture %}\n')
   cat(paste('{{ plot',fig_number,'|markdownify }}',sep=""))
   cat('\n</div>\n</div>')}
 

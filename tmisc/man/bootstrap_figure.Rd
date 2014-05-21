@@ -21,11 +21,18 @@ bootstrap_figure(fig_title="",fig_number=NULL,fig_prefix="Figure",content=...)
 \description{
 A block that puts an image into a panel in bootstrap.
 }
+\note{
+ggplot2 will work with this function, but your expression
+MUST be enclosed in a print command. See the examples.
+}
 \examples{
 # Setup a counter to use for
 counter<-function(){i<-0;function(){i<<-i+1;return(i)}}
 fig_num<-counter()
 # run bootstrap_figure on a picture of a historgram
 bootstrap_figure(fig_title="title",fig_number="a",content=hist(runif(10,0,1)))
+# To run with ggplot, be sure to enclose the expression in a print() command:
+require(ggplot2)
+bootstrap_figure(fig_title="title",fig_number="a",content=print(qplot(rnorm(1000,0,1),binwidth=.2)))
 }
 
