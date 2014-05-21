@@ -22,12 +22,13 @@ block in html. Good for knitr-build websites.
 
 }
 \examples{
+\dontrun{
 bootstrap_warning("Warning 05-19: ","This warning is serious. seriously.")
 # returns:
 <div class="alert alert-danger alert-dismissable">
 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
 </button>
 <strong>Warning 05-19: </strong>This warning is serious. seriously.
-</div>
+</div>}
 }
 

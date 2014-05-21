@@ -1,3 +1,4 @@
+export(bootstrap_figure)
 export(bootstrap_warning)
 export(my_build)
 export(testObject)
