@@ -22,6 +22,8 @@ bootstrap_figure(fig_title="",fig_number=NULL,fig_prefix="Figure",content=...)
 A block that puts an image into a panel in bootstrap.
 }
 \note{
+The command will throw in NULL for content if left blank
+
 ggplot2 will work with this function, but your expression
 MUST be enclosed in a print command. See the examples.
 }

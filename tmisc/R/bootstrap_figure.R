@@ -22,12 +22,15 @@
 #' require(ggplot2)
 #' bootstrap_figure(fig_title="title",fig_number="a",content=print(qplot(rnorm(1000,0,1),binwidth=.2)))
 #' @note
+#' The command will throw in NULL for content if left blank
+#' 
 #' ggplot2 will work with this function, but your expression MUST be enclosed in a print command. See the examples.
+#' 
 #' @export
 
 
 bootstrap_figure<-function(fig_title="",fig_number=NULL,fig_prefix="Figure",content=...){
-cat('<div class="panel panel-default">\n<div class="panel-heading">\n<h3 class="panel-title">\n')
+  cat('<div class="panel panel-default">\n<div class="panel-heading">\n<h3 class="panel-title">\n')
   if(!is.null(fig_number)){
     cat(paste(fig_prefix," ",fig_number,": ",sep=""))
   }
@@ -36,13 +39,16 @@ cat('<div class="panel panel-default">\n<div class="panel-heading">\n<h3 class="
 cat(
   paste('{% capture plot',fig_number,' %}\n',sep="") #liquid templating
   )
-exitfun<-function(){
+exitfun<-function(content=content){
   content
   cat('\n{% endcapture %}\n')
   cat(paste('{{ plot',fig_number,'|markdownify }}',sep=""))
   cat('\n</div>\n</div>')}
-
-return(exitfun())
-
+if(!missing(content)){
+return(exitfun(content=content))
+}else{
+  warning("no content!")
+  return(exitfun(content=NULL))
+}
 }
 
