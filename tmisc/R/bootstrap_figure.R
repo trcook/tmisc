@@ -26,7 +26,7 @@
 #' @export
 
 
-bootstrap_figure<-function( fig_title="",fig_number=NULL,fig_prefix="Figure", content=...){
+bootstrap_figure<-function(fig_title="",fig_number=NULL,fig_prefix="Figure",content=...){
 cat('<div class="panel panel-default">\n<div class="panel-heading">\n<h3 class="panel-title">\n')
   if(!is.null(fig_number)){
     cat(paste(fig_prefix," ",fig_number,": ",sep=""))
@@ -37,7 +37,7 @@ cat(
   paste('{% capture plot',fig_number,' %}\n',sep="") #liquid templating
   )
 exitfun<-function(){
-  if(!is.null(content))content
+  content
   cat('\n{% endcapture %}\n')
   cat(paste('{{ plot',fig_number,'|markdownify }}',sep=""))
   cat('\n</div>\n</div>')}
