@@ -13,7 +13,7 @@
 #' @usage
 #' bootstrap_figure(fig_title="",fig_number=NULL,fig_prefix="Figure",content=...)
 #' @examples
-#' # Setup a counter to use for 
+#' # Setup a counter to use for this
 #' counter<-function(){i<-0;function(){i<<-i+1;return(i)}}
 #' fig_num<-counter()
 #' # run bootstrap_figure on a picture of a historgram
@@ -37,7 +37,7 @@ cat(
   paste('{% capture plot',fig_number,' %}\n',sep="") #liquid templating
   )
 exitfun<-function(){
-  content
+  if(!is.null(content))content
   cat('\n{% endcapture %}\n')
   cat(paste('{{ plot',fig_number,'|markdownify }}',sep=""))
   cat('\n</div>\n</div>')}

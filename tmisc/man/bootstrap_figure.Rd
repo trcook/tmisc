@@ -26,7 +26,7 @@ ggplot2 will work with this function, but your expression
 MUST be enclosed in a print command. See the examples.
 }
 \examples{
-# Setup a counter to use for
+# Setup a counter to use for this
 counter<-function(){i<-0;function(){i<<-i+1;return(i)}}
 fig_num<-counter()
 # run bootstrap_figure on a picture of a historgram
