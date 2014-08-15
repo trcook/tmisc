@@ -1,0 +1,34 @@
+\name{boxcar_notify}
+\alias{boxcar_notify}
+\title{boxcar_notify}
+\usage{
+boxcar_notify(token,body,title)
+}
+\arguments{
+  \item{token}{The token needed to send the push
+  notification. See here:
+  http://help.boxcar.io/knowledgebase/articles/314474-how-to-get-my-boxcar-access-token}
+
+  \item{body}{the text of the body of the warning. A
+  character string.}
+
+  \item{title}{the title of the message (this appears first
+  and foremost in the message.)}
+}
+\value{
+Sends a push notification to the specified token.
+}
+\description{
+A simple function that sends a push notification to the
+device with indicated token.
+}
+\details{
+
+}
+\examples{
+\dontrun{
+#.boxcar_token<-(your token)
+boxcar_notify(token=.boxcar_token,"example",title="this is an example")
+}
+}
+
