@@ -45,7 +45,7 @@ NULL
 #' This script will change your global environment, loading whatever objects and packages that are called in the Rmd.
 #'  
 #' @export
-my_build<-function(file="Building.Rmd",reqs=c("knitr","rmarkdown","devtools","foreign","data.table","ggplot2","stargazer","countrycode")){
+my_build<-function(file="Building.Rmd",reqs=c("knitr","rmarkdown","devtools","foreign","data.table","ggplot2","stargazer","countrycode"),throughshell=F){
   #: Any build file can be specified here and this function will build to
   # console By default, the building.rmd file is used. Adjustments may be needed
   # for changing the working directory This function will check required packages
@@ -61,9 +61,16 @@ my_build<-function(file="Building.Rmd",reqs=c("knitr","rmarkdown","devtools","fo
   
   # Note we're changing the directory here, so you may need to revise this if
   # you want to run this from some other working directory or another machine:
+  if(throughshell==F){
   suppressMessages(source(purl(build_rmd,output=tempfile())))
-  
-}
+  }else{
+    tempR <- tempfile(tmpdir = '.', fileext = ".R",)
+    on.exit(unlink(tempR))
+    script<-paste("Rscript -e \' require(knitr);knit(input=\"",file.path(file), "\",","output=\"",tempR, "\", tangle=TRUE)\'",sep="")  
+    system(script)
+    sys.source(tempR,envir = globalenv())
+  }
+  }
 
 
 #' @title testObject function
