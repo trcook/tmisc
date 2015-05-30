@@ -9,7 +9,7 @@
 #' the name of the task to be run.
 #' @export
 
-boxcartry<-function(token = .boxcar_token,taskname = 'task',task_expression) {
+boxcartry<-function(token = .boxcar_token,taskname = 'task',...) {
   
   tryCatch({
     start <- Sys.time()
@@ -30,7 +30,7 @@ boxcartry<-function(token = .boxcar_token,taskname = 'task',task_expression) {
       token = token,
       title = sprintf("%1$s encountered error",taskname) ,
       body = sprintf(
-        "Error %2$s at  %1$s minutes",err,difftime(start,end,units = 'mins')
+        "Error %1$s at  %2$s minutes",err,difftime(start,end,units = 'mins')
       )
     )
   })
