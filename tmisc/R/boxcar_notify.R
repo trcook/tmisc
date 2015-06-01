@@ -19,12 +19,28 @@
 #' Sends a push notification to the specified token.
 #' @export
 boxcar_notify<-function(token=.boxcar_token,body,title){
-    message<-paste('curl -d  \"user_credentials=',token, ' \" \\
-     -d   \"notification[title]=',title,'\" \\
-                   -d   \"notification[long_message]=',body,'\" \\
-                   -d   \"notification[sound]=bird-1\" \\
-                   -d   \"notification[source_name]=Your Computer  \" \\
-                   -d   \"notification[icon_url]=http://www.r-project.org/Rlogo.jpg  \" \\
-                   https://new.boxcar.io/api/notifications',sep="")
-    system(message)
+    if("RCurl"%in%installed.packages()){require("RCurl")}
+  
+    if("RCurl"%in%loadedNamespaces()){
+
+    postForm("https://new.boxcar.io/api/notifications",
+             "user_credentials"=token,
+             "notification[title]"=title,
+             'notification[long_message]'=body,
+             "notification[sound]"="bird-1",
+             "notification[source_name]"="Your Computer",
+             "notification[icon_url]"="http://www.r-project.org/Rlogo.jpg"
+    )}else{
+      try({
+             message<-paste('curl -d  \"user_credentials=',token, ' \" \\
+              -d   \"notification[title]=',title,'\" \\
+                            -d   \"notification[long_message]=',body,'\" \\
+                            -d   \"notification[sound]=bird-1\" \\
+                            -d   \"notification[source_name]=Your Computer  \" \\
+                            -d   \"notification[icon_url]=http://www.r-project.org/Rlogo.jpg  \" \\
+                            https://new.boxcar.io/api/notifications',sep="")
+             system(message)
+      })
+    }
+  
 }
