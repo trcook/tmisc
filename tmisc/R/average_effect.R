@@ -81,21 +81,16 @@ setxgen<-function(model=model,m,base.frame){
 
 qi1<-function(beta=betas,setxframe=setx.frame,sm=m,num=n){
 
-  yhatout<-c()
-  for(i in 1:num){
-    yhati<-c()
-    for(j in 1:length(setxframe[,1])){
-      yhati<-append(yhati,inv.logit(beta[i,]%*%setxframe[j,]))
-    }
-    yhatout<-append(yhatout,mean(yhati))
-  }
-  yhat<-mean(yhatout)
-  yhathi<-quantile(yhatout,.975)
-  yhatlo<-quantile(yhatout,.025)
+  yhatout<-sapply(c(1:num),FUN=function(i){
+    return(mean(inv.logit(setxframe%*%beta[i,])))
+    })
+   yhat<-mean(yhatout)
+   yhathi<-quantile(yhatout,.975)
+   yhatlo<-quantile(yhatout,.025)
   
-  outframe<-data.frame(est=yhat,estlo=yhatlo,esthi=yhathi)
-  row.names(outframe)<-c()
-  return(outframe)
+   outframe<-data.frame(est=yhat,estlo=yhatlo,esthi=yhathi)
+   row.names(outframe)<-c()
+  return(outframe)  
 }
 
 
