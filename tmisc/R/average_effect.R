@@ -45,8 +45,9 @@ return(outlist)
 #' adjustinc
 #' this closure gives individual rows of an adjusted grid one at a time, each time it is called.
 #' @examples
+#' \dontrun{
 #' adjustnext<-adjustinc(expand.grid(b=c(0:5)))
-#' adjustnext()
+#' adjustnext()}
 
 adjustinc<-function(adjust){
   limiter<-length(adjust[,1])

@@ -40,4 +40,3 @@ convertcsv<-function(dir="./"){
 		})
 }
 
-convertcsv("Pristene Data/eugenefull/")
