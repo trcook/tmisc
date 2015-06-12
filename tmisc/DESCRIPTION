@@ -8,3 +8,4 @@ Maintainer: Thomas R. Cook <thomas.cook@colorado.edu>
 Description: Various small functions, see manual for more detailed descriptions
 License: GPL-3
 Suggests: RCurl
+Depends: rjson
