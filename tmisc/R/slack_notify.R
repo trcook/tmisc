@@ -14,15 +14,14 @@
 #' slack_notify(webhookuri=.slack_webhook_uri,title="this is an example","example")
 #' }
 #' @usage
-#' boxcar_notify(token,body,title)
+#' slack_notify(token,body,title)
 #' @return
 #' Sends a push notification to the specified team chat  via slack.
 #' @export
 
 slack_notify<-function(webhookuri=.slack_webhook_uri,title,body){
 	require(rjson)
-  require(RCurl)   
-	
+  if("RCurl"%in%installed.packages()){require("RCurl")}else{stop("This package requires RCurl to be installed. Either install RCurl or try uising boxcar_notify instead")}	
 	x<-list(text='message from R',
 		attachments=list(list(fallback=title,
 		prefix='new message from R',
