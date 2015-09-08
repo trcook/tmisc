@@ -4,7 +4,7 @@
 \alias{slack_notify}
 \title{slack_notify}
 \usage{
-boxcar_notify(token,body,title)
+slack_notify(token,body,title)
 }
 \arguments{
 \item{webhookuri}{this is the uri that the webhook integration of slack will give you for posting into a specified channel. You need to configure this through slack.}

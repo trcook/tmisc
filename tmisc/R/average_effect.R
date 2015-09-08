@@ -1,17 +1,35 @@
 #' average predicted qi simulation
 #' 
 #' @description
-#' This generates the average predicted effect for quantities of interest using simulations. This is useful for examining the effect of a quantity of interest (iv) in an interaction while still remaining sensitive to the dependence of the interaction effect \eqn{\partial^2 E[y|XB]/\partial x_1 \partial x_2}.
+#' This generates the average predicted effect for quantities of interest using simulations. This is useful for examining the effect of a quantity of interest (iv) in an interaction while still remaining sensitive to the dependence of the interaction effect i.e.: 
+#' 
+#' \eqn{\begin{equation}\partial^2 E[y|XB]/\partial x_1 \partial x_2\end{equation}}{d^2 E[y|XB] / dx_1 dx_2}.
+#'
+#' @references 
+#' Ai, Chunrong and Edward C Norton. 2003. “Interaction terms in logit and probit models.” Economics letters 80(1):123–129.
+#' @references 
+#' Hanmer, Michael J and Kerem Ozan Kalkan. 2013. “Behind the curve: Clarifying the best approach to calculating predicted probabilities and marginal effects from limited dependent variable models.” American Journal of Political Science 57(1):263–277.
 #' @usage
 #' To use, input a model, the number of simulations you'd like to run, and the features (i.e. variables ) you'd like to hold constant. 
+#' @param model
+#' The model object, currently must be logit or rare-events logit model
+#' @param n
+#' The number of simulations to run
+#' @param ...
+#' The fixed/adjusted parameters for which we want effects. for example x=1 or, for a range of values: x=c(1:99)
 #' @examples
 #' \dontrun{
+#' # first simulate a model with an interaction
 #' x<-runif(500,0,1)
 #' z<-runif(500,0,1)
-#' y<-rbinom(500,1,.1*x+.1*z+.5*x*z)
+#' m<-runif(500,0,1)
+#' y<-rbinom(500,1,.1*x+.1*z+.5*x*z+m)
 #' mod1<-glm(y~x*z)
-#' qi<-avg_pred_qi(mod1,500,x=c(0,1))
-#' qi<-avg_pred_qi(mod1,500,x=seq(0,1,.2),z=1)
+#' # now get the average treatment effects for specified value of parameter x (0 and 1)
+#' qi1<-avg_pred_qi(mod1,500,x=c(0,1))
+#' 
+#' # now get average treatment effects for values of x between 0 and 1 incremented by .2, and holding z constant
+#' qi2<-avg_pred_qi(mod1,500,x=seq(0,1,.2),z=1)
 #' }
 #' NULL
 #' @export
