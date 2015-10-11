@@ -28,11 +28,14 @@
 #' #---
 #' options('saveopts'=F) # default, 
 #' source('./script.R') # will run but not save
-#' 
+#' length(dir(scriptdir,pattern="tmp.*\\.Rda"))
 #' # Script can save up to 3 files, but we don't always want it to do that. By default no files will save. to save (ex. from bash):
 #' options('saveopts'=T)
 #' source(script) # will save all three files.
+#' dir(scriptdir,pattern="tmp.*\\.Rda")
 #' 
+#' #cleanup files created for this example 
+#' unlink(file.path(recursive=T,scriptdir))
 #' # alternative in bash
 #' # $ Rscript -e 'options("saveopts"=T);source(script)'
 #' }
