@@ -15,24 +15,26 @@
 #' # will save
 #' 
 #' # use case: setup a script and source, when you want to save it, set options before sourcing:
-#' # script.R
-#' x<-rnorm(100)
-#' y<-runif(199)
-#' z<-rpois(100)
-#' safesave(x,file='./tmp.Rda')
-#' safesave(y,file='./tmp1.Rda')
-#' safesave(z,file='./tmp2.Rda')
-#' 
+#' scriptdir<-tempdir()
+#' script<-file.path(scriptdir,'script')
+#' sink(script)
+#' cat("x<-rnorm(100)\n")
+#' cat("y<-runif(199)\n")
+#' cat("z<-rpois(100,1)\n")
+#' cat("safesave(x,file=file.path(scriptdir,'tmp.Rda'))\n")
+#' cat("safesave(y,file=file.path(scriptdir,'tmp1.Rda'))\n")
+#' cat("safesave(z,file=file.path(scriptdir,'tmp2.Rda'))\n")
+#' sink()
 #' #---
 #' options('saveopts'=F) # default, 
 #' source('./script.R') # will run but not save
 #' 
 #' # Script can save up to 3 files, but we don't always want it to do that. By default no files will save. to save (ex. from bash):
 #' options('saveopts'=T)
-#' source('./script.R') # will save all three files.
+#' source(script) # will save all three files.
 #' 
 #' # alternative in bash
-#' # $ Rscript -e 'options("saveopts"=T);source("file.R")'
+#' # $ Rscript -e 'options("saveopts"=T);source(script)'
 #' }
 #' @usage
 #' safesave(...)
