@@ -5,7 +5,7 @@
 convertdta<-function(dir="./"){
 	require(foreign)
 	to_proc<-dir(dir,pattern="*.dta")
-	to_proc<-data.frame(filename=to_proc,filepath=file.path(dir,to_proc,fsep=''),objname=gsub(to_proc,pattern='\\.dta',replacement=''))
+	to_proc<-data.frame(filename=to_proc,filepath=file.path(dir,to_proc,fsep=''),objname=gsub(to_proc,pattern='\\.dta|-|\\s',replacement=''))
 	to_proc$newpath<-gsub(x=to_proc$filepath,pattern='\\.dta',rep='.rda')
 #	print(gsub(x=to_proc$filepath,pattern='\\.dta',rep='.rda'))
 	print(to_proc)
@@ -27,7 +27,7 @@ convertcsv<-function(dir="./"){
 	require(foreign)
 	require(data.table)
 	to_proc<-dir(dir,pattern="*.csv")
-	to_proc<-data.frame(filename=to_proc,filepath=file.path(dir,to_proc,fsep=''),objname=gsub(to_proc,pattern='\\.csv',replacement=''))
+	to_proc<-data.frame(filename=to_proc,filepath=file.path(dir,to_proc,fsep=''),objname=gsub(to_proc,pattern="\\.csv|-|\\s",replacement=''))
 	to_proc$newpath<-gsub(x=to_proc$filepath,pattern='\\.csv',rep='.rda')
 #	print(gsub(x=to_proc$filepath,pattern='\\.dta',rep='.rda'))
 	print(to_proc)
