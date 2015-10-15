@@ -8,6 +8,10 @@ safesave(...)
 }
 \arguments{
 \item{...}{Arguments passed to `save()`}
+
+\item{.whichop}{name of option to reference to determine if file should be saved. Recommended that this is unique to your file. Option should evaluate to logical. Safesave can change this option on exit, so don't do something dumb like set this to the name of a base option.}
+
+\item{.keepopts}{If safesave should save, should it keep the .whichop option turned on for future calls to safesave? False by default. A single call to safesave, if .whichop is set to T, will switch it to FALSE after saving. Turn this option to True, to prevent safesave from changing the value of .whichop. This is useful if you want to set one option and allow safesave to run multiple times (as in the example below).}
 }
 \value{
 prints message indicating whether save occured or how to set options to enable save
@@ -35,8 +39,8 @@ sink(script)
 cat("x<-rnorm(100)\\n")
 cat("y<-runif(199)\\n")
 cat("z<-rpois(100,1)\\n")
-cat("safesave(x,file=file.path(scriptdir,'tmp.Rda'))\\n")
-cat("safesave(y,file=file.path(scriptdir,'tmp1.Rda'))\\n")
+cat("safesave(x,file=file.path(scriptdir,'tmp.Rda').whichop='saveopts',.keepopts=T)\\n")
+cat("safesave(y,file=file.path(scriptdir,'tmp1.Rda'),.whichop='saveopts',.keepopts=F)\\n")
 cat("safesave(z,file=file.path(scriptdir,'tmp2.Rda'))\\n")
 sink()
 #---
