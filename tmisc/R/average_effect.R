@@ -37,23 +37,53 @@
 avg_pred_qi<-function(model=poast_model,n=10,...){
   require(MASS)
 betas<-mvrnorm(n,coef(model),vcov(model))
-adjust<-expand.grid(list(...))
+# check if nested list or not
+for(i in list(...)){
+  if('list'%in%class(i)){
+    nesto<-1
+    print('found list containing adjustment items')
+    break()
+  }else{
+    nesto<-0
+  }
+}
+
+if(nesto>0){
+  adjust<-expand.grid(...)
+  # if(length(setdiff(names(expand.grid(...)),names(base.frame)))>0){stop("adjusted variables not in model")}
+  
+}else{
+  adjust<-expand.grid(list(...))  
+  # if(length(setdiff(names(expand.grid(list(...))),names(base.frame)))>0){stop("adjusted variables not in model")}
+
+}
 adjustnext<-adjustinc(adjust)
+
+# if(nesto>0){
+# if(length(setdiff(names(expand.grid(...)),names(base.frame)))>0){stop("adjusted variables not in model")}
+# }else{
+# if(length(setdiff(names(expand.grid(list(...))),names(base.frame)))>0){stop("adjusted variables not in model")}
+# }
+
 
 base.frame<-model.frame(model)
 
 # error check
-if(length(setdiff(names(expand.grid(list(...))),names(base.frame)))>0){stop("adjusted variables not in model")}
+if(length(setdiff(names(adjust),names(base.frame)))>0){stop("adjusted variables not in model")}
+
 
 # the loop needs to have 3 big steps:
 # 1. it needs to pull the next row from adjust
 # 2. it needs to generate the adjusted model.matrix via setx.frame
+#2a. get correct mean function
 # 3. it needs to estimate via qi1
+
+meanf<-meanfun_find(model)
 outlist<-c()
 m<-adjustnext()
 while(!'adjustincend'%in%m){
 setx.frame<-setxgen(model = model,m = m,base.frame = base.frame)
-outi<-cbind(m,qi1(beta = betas,setxframe = setx.frame,num = n))
+outi<-cbind(m,qi1(beta = betas,setxframe = setx.frame,num = n,meanf=meanf))
 outlist<-rbind(outlist,outi)
 m<-adjustnext()
 }
@@ -98,8 +128,8 @@ setxgen<-function(model=model,m,base.frame){
 #' @description 
 #' generates qi for a singular row from adjust
 
-qi1<-function(beta=betas,setxframe=setx.frame,sm=m,num=n){
-
+qi1<-function(beta=betas,setxframe=setx.frame,sm=m,num=n,meanf){
+  
   yhatout<-sapply(c(1:num),FUN=function(i){
     return(mean(inv.logit(setxframe%*%beta[i,])))
     })
@@ -113,4 +143,17 @@ qi1<-function(beta=betas,setxframe=setx.frame,sm=m,num=n){
 }
 
 
+
+#' meanfun_find
+#' @description 
+#' determines, returns the appropriate mean function to use
+
+meanfun_find<-function(mod){
+  try({
+  f<-switch(mod$family$family, poisson=exp,logit=inv.logit)
+  return(f)
+  },silent = T)
+  return(inv.logit)
+  
+}
 
