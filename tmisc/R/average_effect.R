@@ -131,7 +131,7 @@ setxgen<-function(model=model,m,base.frame){
 qi1<-function(beta=betas,setxframe=setx.frame,sm=m,num=n,meanf){
   
   yhatout<-sapply(c(1:num),FUN=function(i){
-    return(mean(inv.logit(setxframe%*%beta[i,])))
+    return(mean(meanf(setxframe%*%beta[i,])))
     })
    yhat<-mean(yhatout)
    yhathi<-quantile(yhatout,.975)
@@ -150,10 +150,10 @@ qi1<-function(beta=betas,setxframe=setx.frame,sm=m,num=n,meanf){
 
 meanfun_find<-function(mod){
   try({
-  f<-switch(mod$family$family, poisson=exp,logit=inv.logit)
+  f<-switch(mod$family$family, poisson=exp,binomial=inv.logit,gaussian=identity)
+  if(is.null(f)){stop()}
   return(f)
-  },silent = T)
+   },silent = T)
   return(inv.logit)
-  
 }
 

@@ -40,3 +40,52 @@ convertcsv<-function(dir="./"){
 		})
 }
 
+
+#' convertxls
+#' @description
+#' converts files in directory from xls to rda and saves copies. 
+#' @note 
+#' You should/must put a trailing slash on the end of the path you are searching. 
+#'@export convertxls
+
+convertxls<-function(mydir="./"){
+  # to_proc<-dir(mydir,pattern="*.xls|*.xlsx",recursive=T,all.files = FALSE)
+  
+  # Step 1: get xls files in directory
+  to_proc<-dir(
+  mydir,pattern="*.xls|*.xlsx",recursive=T,
+  all.files = FALSE)
+  to_proc<-to_proc[!grepl(to_proc,pattern='~\\$')]  
+  print(to_proc)
+  
+  # step 2 load in workbooks
+  workbooks<-list()
+  for(i in to_proc){
+    ifile<-i
+    objname<-gsub(x=i,pattern='\\.xlsx|\\.xls|-|\\s|[^a-zA-Z0-9]',replacement='')
+    workbooks[[objname]]<-XLConnect::loadWorkbook(filename = file.path(mydir,ifile,fsep=''))
+  }
+  
+  #step 3: get sheets from each object and save
+  procsheets<-lapply(seq_along(workbooks),function(w){
+    x<-workbooks[[w]]
+    sht<- XLConnect::getSheets(x)
+    wbk<-
+    print(sht)
+    print(class(sht))
+    print(length(sht))
+    print(class(x))
+    if(length(sht)>1){
+      print("multiple")
+    for(i in sht){
+            print("forbreak")
+      outname<-paste(names(workbooks)[[w]],i,'.RDS',sep='')
+      print(outname)
+      saveRDS(x[i],file = file.path(mydir,outname))
+    }}else{
+      outname<-paste(x,'.RDS',sep='')
+      saveRDS(x,file=file.path(mydir,outname))
+    }})
+    return()}
+    
+    

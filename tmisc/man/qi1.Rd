@@ -4,7 +4,7 @@
 \alias{qi1}
 \title{qi1}
 \usage{
-qi1(beta = betas, setxframe = setx.frame, sm = m, num = n)
+qi1(beta = betas, setxframe = setx.frame, sm = m, num = n, meanf)
 }
 \description{
 generates qi for a singular row from adjust
