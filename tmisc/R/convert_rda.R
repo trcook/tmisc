@@ -23,18 +23,20 @@ convertdta<-function(dir="./"){
 #' @description
 #' converts files in directory from dta to rda and saves copies. 
 #'@export convertcsv
-convertcsv<-function(dir="./"){
+convertcsv<-function(dir="./",save_format='rda'){
 	require(foreign)
 	require(data.table)
+  save_method<-switch(save_format,'rda'=save,'rds'=saveRDS)
+  ext=paste0('.',save_format,sep='')
 	to_proc<-dir(dir,pattern="*.csv")
 	to_proc<-data.frame(filename=to_proc,filepath=file.path(dir,to_proc,fsep=''),objname=gsub(to_proc,pattern="\\.csv|-|\\s",replacement=''))
-	to_proc$newpath<-gsub(x=to_proc$filepath,pattern='\\.csv',rep='.rda')
+	to_proc$newpath<-gsub(x=to_proc$filepath,pattern='\\.csv',rep=ext)
 #	print(gsub(x=to_proc$filepath,pattern='\\.dta',rep='.rda'))
 	print(to_proc)
 	apply(to_proc,1,function(x){
 		eval(substitute({
 			obj<-data.table(read.csv(filepath))
-			save(obj,file=newpath)
+			save_method(obj,file=newpath)
 			},
 			env=list(obj=as.name(x['objname']),filepath=x['filepath'],newpath=x['newpath'])))
 		})
