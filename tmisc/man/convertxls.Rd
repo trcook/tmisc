@@ -4,10 +4,11 @@
 \alias{convertxls}
 \title{convertxls}
 \usage{
-convertxls(mydir = "./")
+convertxls(mydir = "./", save_format = "rda")
 }
 \description{
 converts files in directory from xls to rda and saves copies.
+Among other things, this is a useful function to use if you need #' or want to save some harddrive space.
 }
 \note{
 You should/must put a trailing slash on the end of the path you are searching.

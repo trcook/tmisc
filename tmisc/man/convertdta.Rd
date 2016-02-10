@@ -8,5 +8,7 @@ convertdta(dir = "./")
 }
 \description{
 converts files in directory from dta to rda and saves copies.
+Among other things, this is a useful function to use if you need
+or want to save some harddrive space.
 }
 
