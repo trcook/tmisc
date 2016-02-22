@@ -4,7 +4,8 @@
 #' Among other things, this is a useful function to use if you need 
 #' or want to save some harddrive space.
 #'@export convertdta
-convertdta<-function(dir="./"){
+convertdta<-function(dir="./",save_format='rda'){
+  
 	require(foreign)
   save_method<-switch(save_format,'rda'=save,'rds'=saveRDS)
   ext=paste0('.',save_format,sep='')
@@ -94,7 +95,8 @@ convertxls<-function(mydir="./",save_format='rda'){
       print(outname)
       save_method(x[i],file = file.path(mydir,outname))
     }}else{
-      outname<-paste(x,'.RDS',sep='')
+      print('single')
+      outname<-paste(names(workbooks)[[w]],'.RDS',sep='')
       save_method(x,file=file.path(mydir,outname))
     }})
     return()}

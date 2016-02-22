@@ -12,6 +12,8 @@ safesave(...)
 \item{.whichop}{name of option to reference to determine if file should be saved. Recommended that this is unique to your file. Option should evaluate to logical. Safesave can change this option on exit, so don't do something dumb like set this to the name of a base option.}
 
 \item{.keepopts}{If safesave should save, should it keep the .whichop option turned on for future calls to safesave? False by default. A single call to safesave, if .whichop is set to T, will switch it to FALSE after saving. Turn this option to True, to prevent safesave from changing the value of .whichop. This is useful if you want to set one option and allow safesave to run multiple times (as in the example below).}
+
+\item{.format}{Save to rds or rda? Set to rda by default. If set to RDS, will set to RDS format. Setting format to RDS will require that no more than 1 object be specified for saving (this is a restriction fo the RDS format itself).}
 }
 \value{
 prints message indicating whether save occured or how to set options to enable save

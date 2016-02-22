@@ -8,6 +8,8 @@
 #' name of option to reference to determine if file should be saved. Recommended that this is unique to your file. Option should evaluate to logical. Safesave can change this option on exit, so don't do something dumb like set this to the name of a base option.
 #' @param .keepopts
 #' If safesave should save, should it keep the .whichop option turned on for future calls to safesave? False by default. A single call to safesave, if .whichop is set to T, will switch it to FALSE after saving. Turn this option to True, to prevent safesave from changing the value of .whichop. This is useful if you want to set one option and allow safesave to run multiple times (as in the example below). 
+#' @param .format
+#' Save to rds or rda? Set to rda by default. If set to RDS, will set to RDS format. Setting format to RDS will require that no more than 1 object be specified for saving (this is a restriction fo the RDS format itself). 
 #' @examples 
 #' \dontrun{
 #' x<-rnorm(100)
@@ -50,8 +52,9 @@
 #' @export
 
 
-safesave<-function(...,.whichop='saveopts',.keepopts=F){
+safesave<-function(...,.whichop='saveopts',.keepopts=F,.format='rda'){
   args<-list(...)
+  save_method<-switch(.format,rda=save,rds=saveRDS)
   if(is.null(match.call()$list)){
   objs<-paste0(all.vars(substitute(list(...))),collapse = ', ')
   }else{
@@ -60,13 +63,13 @@ safesave<-function(...,.whichop='saveopts',.keepopts=F){
   saveopts<-options(.whichop)[[1]] # [[1]] needed because options returns list
   if(is.null(saveopts)) options('saveopts'=F)
   if(all(!is.null(saveopts),saveopts==T)){
-    save.fun=save
+    save.fun=save_method
     if(.keepopts==T){
       exit<-"3"
     }else{
     exit<-"0"
     options(setNames(as.list(F),c(.whichop)))
-    print(options(.whichop))
+    print(sprintf('%s set to %s',.whichop,options(.whichop)))
     }
    }else{
      save.fun=function(...) NULL
